@@ -57,7 +57,9 @@ class Game < Gosu::Window
 	end
 
 	def update
-		if ($playing && @@update_time % 30 == 0 )
+		@screen.grid.click x: mouse_x, y: mouse_y  if (Gosu.button_down? 256)
+
+		if ($playing && @@update_time % 15 == 0 )
 			@buffer.screen.grid.grid.each { |col| col.each &:step }
 			@buffer.screen.grid.grid.each { |col| col.each &:step! }
 		end

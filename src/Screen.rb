@@ -10,7 +10,8 @@ class Screen
 	end
 
 	def click args
-		return true  if (@grid.click(args) || @buffer.click(args))
+		#return true  if (@grid.click(args) || @buffer.click(args))
+		return true  if (@buffer.click(args))
 		return false
 	end
 
