@@ -40,7 +40,6 @@ class Field
 			[-1,0,1].each do |n2|
 				i1 = index[0] + n1
 				i2 = index[1] + n2
-				puts "#{i1}, #{i2} 		#{@grid.grid.length}, #{@grid.grid[n1].length}"
 				if (@grid.grid[i1].nil?)
 					i1 = i1 - @grid.grid.length
 				end
@@ -62,7 +61,6 @@ class Field
 		when :alive
 			# DIES
 			if (neighbors.count(:alive).in_ranges?(RULES[:die]))
-				puts neighbors.count(:alive)
 				@next_state = :dead
 			else
 				@next_state = @state

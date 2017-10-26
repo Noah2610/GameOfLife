@@ -32,6 +32,8 @@ RULES = {
 	]
 }
 
+$playing = false
+
 class Game < Gosu::Window
 	def initialize
 		@screen = Screen.new
@@ -54,6 +56,11 @@ class Game < Gosu::Window
 	end
 
 	def update
+		if ($playing && @@last_update != Time.now )
+			@buffer.screen.grid.grid.each { |col| col.each &:step }
+			@buffer.screen.grid.grid.each { |col| col.each &:step! }
+		end
+		@@last_update = Time.now
 	end
 
 	def draw

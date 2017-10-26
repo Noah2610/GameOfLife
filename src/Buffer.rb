@@ -8,7 +8,9 @@ class Buffer
 		@screen = args[:screen]  if defined?(args[:screen])
 
 		@buttons = [
-			StepButton.new(buffer: self, offset: { x: 32, y: 16, }, size: { w: 128, h: 32 } )
+			StepButton.new(buffer: self, offset: { x: 32, y: 16 }, size: { w: 128, h: 32 } ),
+			PlayButton.new(buffer: self, offset: { x: 320, y: 16 }, size: { w: 128, h: 32 } ),
+			PauseButton.new(buffer: self, offset: { x: 464, y: 16 }, size: { w: 128, h: 32 } )
 		]
 	end
 

@@ -41,3 +41,28 @@ class StepButton < Button
 	end
 end
 
+class PlayButton < Button
+	def draw
+		bg_color = @@bg_color
+		fg_color = @@fg_color
+		Gosu.draw_rect @x, @y, @size[:w], @size[:h], bg_color
+		@@font.draw_rel "Play", (@x + (@size[:w] / 2)).to_i, (@y + (@size[:h] / 2)).to_i, 0, 0.5,0.45, 1,1, fg_color
+	end
+	def click args
+		$playing = true
+	end
+end
+
+class PauseButton < Button
+	def draw
+		bg_color = @@bg_color
+		fg_color = @@fg_color
+		Gosu.draw_rect @x, @y, @size[:w], @size[:h], bg_color
+		@@font.draw_rel "Pause", (@x + (@size[:w] / 2)).to_i, (@y + (@size[:h] / 2)).to_i, 0, 0.5,0.45, 1,1, fg_color
+	end
+
+	def click args
+		$playing = false
+	end
+end
+
