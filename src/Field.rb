@@ -38,10 +38,16 @@ class Field
 		
 		[-1,0,1].each do |n1|
 			[-1,0,1].each do |n2|
-				i1 = (index[0] + n1 >= @grid.grid.length ? (index[0] + n1) - @grid.grid.length + 1 : index[0] + n1)
-				i2 = (index[1] + n2 >= @grid.grid[i1].length ? (index[1] + n2) - @grid.grid[i1].length + 1 : index[1] + n2)
+				i1 = index[0] + n1
+				i2 = index[1] + n2
 				puts "#{i1}, #{i2} 		#{@grid.grid.length}, #{@grid.grid[n1].length}"
-				next  if (n1 == 0 && n2 == 0 )
+				if (@grid.grid[i1].nil?)
+					i1 = i1 - @grid.grid.length
+				end
+				if (@grid.grid[i1][i2].nil?)
+					i2 = i2 - @grid.grid[i1].length
+				end
+				next  if (n1 == 0 && n2 == 0)
 				neighbors << @grid.grid[i1][i2].state
 			end
 		end
