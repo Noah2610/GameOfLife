@@ -5,11 +5,14 @@ require 'awesome_print'
 require './src/Screen.rb'
 require './src/Grid.rb'
 require './src/Field.rb'
+require './src/Buffer.rb'
+require './src/Buttons.rb'
 
 class Game < Gosu::Window
 	def initialize
 		@screen = Screen.new
-		super @screen.x, @screen.y
+		@buffer = @screen.buffer
+		super @screen.w + @buffer.w, @screen.h + @buffer.h
 		self.caption = "Conway's Game Of Life"
 	end
 
@@ -18,7 +21,7 @@ class Game < Gosu::Window
 		when Gosu::KB_Q
 			close
 		when Gosu::MsLeft
-			@screen.grid.click mouse_x, mouse_y
+			@screen.click x: mouse_x, y: mouse_y
 		end
 	end
 
@@ -30,8 +33,8 @@ class Game < Gosu::Window
 	end
 
 	def draw
-		# Draw grid
-		@screen.grid.draw
+		# Draw screen
+		@screen.draw
 	end
 end
 

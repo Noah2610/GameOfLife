@@ -31,17 +31,14 @@ class Grid
 		return grid
 	end
 
-	def draw
-		@grid.each do |col|
-			col.each do |field|
-				field.draw
-			end
+	def click args
+		field = grid_collision x: args[:x], y: args[:y]
+		if (field)
+			field.toggle
+			return field
+		else
+			return false
 		end
-	end
-
-	def click (mouse_x, mouse_y)
-		field = grid_collision x: mouse_x, y: mouse_y
-		field.toggle  if (field)
 	end
 
 	def grid_collision pos
@@ -52,6 +49,14 @@ class Grid
 			end
 		end
 		return nil
+	end
+
+	def draw
+		@grid.each do |col|
+			col.each do |field|
+				field.draw
+			end
+		end
 	end
 
 end

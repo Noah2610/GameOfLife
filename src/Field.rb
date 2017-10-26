@@ -31,6 +31,19 @@ class Field
 		return @state
 	end
 
+	def step
+		# Next generation - get info
+		case @state
+		when :alive
+		when :dead
+		end
+		end
+	end
+
+	def step!
+		# Actually apply new generation
+	end
+
 	def draw
 		color = Gosu::Color.argb(0xff_ff0000)
 		case @state
@@ -42,7 +55,7 @@ class Field
 		# border
 		Gosu.draw_rect @pos[:x], @pos[:y], @size, @size, Gosu::Color.argb(0xff_aaaaaa)
 		# center
-		Gosu.draw_rect @pos[:x] + 1, @pos[:y] + 1, @size - 1, @size - 1, color
+		Gosu.draw_rect @pos[:x], @pos[:y], @size - 1, @size - 1, color
 	end
 end
 
