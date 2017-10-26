@@ -38,8 +38,9 @@ class Game < Gosu::Window
 	def initialize
 		@screen = Screen.new
 		@buffer = @screen.buffer
-		super @screen.w + @buffer.w, @screen.h + @buffer.h
+		super @screen.w, @screen.h + @buffer.h
 		self.caption = "Conway's Game Of Life"
+		@@update_time = 0
 	end
 
 	def button_down id
@@ -56,11 +57,13 @@ class Game < Gosu::Window
 	end
 
 	def update
-		if ($playing && @@last_update != Time.now )
+		if ($playing && @@update_time % 30 == 0 )
 			@buffer.screen.grid.grid.each { |col| col.each &:step }
 			@buffer.screen.grid.grid.each { |col| col.each &:step! }
 		end
 		@@last_update = Time.now
+		@@update_time += 1
+		#TODO do this properly ^
 	end
 
 	def draw

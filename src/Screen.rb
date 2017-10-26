@@ -4,7 +4,7 @@ class Screen
 	def initialize
 		@w = 640
 		@h = 480
-		@buffer = Buffer.new w: 0, h: 64, screen: self
+		@buffer = Buffer.new w: @w, h: 64, screen: self
 		@grid_size = 32
 		@grid = Grid.new w: @w, h: @h, grid_size: @grid_size
 	end
