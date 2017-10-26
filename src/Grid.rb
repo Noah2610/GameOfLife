@@ -24,7 +24,8 @@ class Grid
 					},
 					index: [x,y],
 					size: @grid_size,
-					state: :dead
+					state: :dead,
+					grid: self
 				)
 			end
 		end

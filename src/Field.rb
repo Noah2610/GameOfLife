@@ -1,6 +1,6 @@
 
 class Field
-	attr_reader :index, :pos
+	attr_reader :index, :pos, :state
 	def initialize args
 		@index = [args[:index][0], args[:index][1]]
 		@pos = {
@@ -8,7 +8,9 @@ class Field
 			y: args[:pos][:y]
 		}
 		@size = args[:size]
+		@grid = args[:grid]
 		@state = args[:state]
+		@next_state = @state
 	end
 
 	def collision? pos
@@ -31,31 +33,65 @@ class Field
 		return @state
 	end
 
+	def get_neighbors
+		neighbors = []
+		
+		[-1,0,1].each do |n1|
+			[-1,0,1].each do |n2|
+				i1 = (index[0] + n1 >= @grid.grid.length ? (index[0] + n1) - @grid.grid.length + 1 : index[0] + n1)
+				i2 = (index[1] + n2 >= @grid.grid[i1].length ? (index[1] + n2) - @grid.grid[i1].length + 1 : index[1] + n2)
+				puts "#{i1}, #{i2} 		#{@grid.grid.length}, #{@grid.grid[n1].length}"
+				next  if (n1 == 0 && n2 == 0 )
+				neighbors << @grid.grid[i1][i2].state
+			end
+		end
+
+		return neighbors
+	end
+
 	def step
 		# Next generation - get info
+		neighbors = get_neighbors
 		case @state
 		when :alive
+			# DIES
+			if (neighbors.count(:alive).in_ranges?(RULES[:die]))
+				puts neighbors.count(:alive)
+				@next_state = :dead
+			else
+				@next_state = @state
+			end
+
 		when :dead
-		end
+			# LIVES
+			if (neighbors.count(:alive).in_ranges?(RULES[:birth]))
+				@next_state = :alive
+			end
+
+		else
+			@next_state = @state
 		end
 	end
 
 	def step!
 		# Actually apply new generation
+		@state = @next_state
 	end
 
 	def draw
-		color = Gosu::Color.argb(0xff_ff0000)
+		bg_color = Gosu::Color.argb(0xff_aaaaaa)
 		case @state
 		when :alive
-			color = Gosu::Color.argb(0xff_999999)
+			fg_color = Gosu::Color.argb(0xff_999999)
 		when :dead
-			color = Gosu::Color.argb(0xff_000000)
+			fg_color = Gosu::Color.argb(0xff_000000)
+		else
+			fg_color = Gosu::Color.argb(0xff_ff0000)
 		end
 		# border
-		Gosu.draw_rect @pos[:x], @pos[:y], @size, @size, Gosu::Color.argb(0xff_aaaaaa)
+		Gosu.draw_rect @pos[:x], @pos[:y], @size, @size, bg_color
 		# center
-		Gosu.draw_rect @pos[:x], @pos[:y], @size - 1, @size - 1, color
+		Gosu.draw_rect @pos[:x], @pos[:y], @size - 1, @size - 1, fg_color
 	end
 end
 

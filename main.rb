@@ -8,6 +8,30 @@ require './src/Field.rb'
 require './src/Buffer.rb'
 require './src/Buttons.rb'
 
+class Integer
+	def in_ranges? ranges
+		ranges.each do |range|
+			if (range.member? self)
+				return true
+			end
+		end
+		return false
+	end
+end
+
+RULES = {
+	idle: [
+		(2 .. 3)
+	],
+	die: [
+		(-Float::INFINITY .. 1),
+		(4 .. Float::INFINITY)
+	],
+	birth: [
+		(3 .. 3)
+	]
+}
+
 class Game < Gosu::Window
 	def initialize
 		@screen = Screen.new

@@ -36,10 +36,8 @@ class StepButton < Button
 
 	def click args
 		# Next generation
-=begin
-		@buffer.screen.grid.grid.each &:step
-		@buffer.screen.grid.grid.each &:step!
-=end
+		@buffer.screen.grid.grid.each { |col| col.each &:step }
+		@buffer.screen.grid.grid.each { |col| col.each &:step! }
 	end
 end
 
