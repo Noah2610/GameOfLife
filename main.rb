@@ -34,7 +34,7 @@ RULES = {
 }
 
 $playing = false
-$gen_speed = 32
+$gen_speed = 30
 
 class Game < Gosu::Window
 	def initialize

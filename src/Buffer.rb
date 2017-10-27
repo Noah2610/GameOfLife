@@ -11,7 +11,8 @@ class Buffer
 			#PlayButton.new(buffer: self, offset: { x: (@w - 304), y: 16 }, size: { w: 128, h: 32 } ),
 			#PauseButton.new(buffer: self, offset: { x: (@w - 160), y: 16 }, size: { w: 128, h: 32 } ),
 			StepButton.new(buffer: self, offset: { x: 16, y: 16 }, size: { w: 128, h: 32 } ),
-			TogglePlayButton.new(buffer: self, offset: { x: 160, y: 16 }, size: { w: 128, h: 32 } )
+			TogglePlayButton.new(buffer: self, offset: { x: 160, y: 16 }, size: { w: 128, h: 32 } ),
+			ClearButton.new(buffer: self, offset: { x: (@w - 144), y: 16 }, size: { w: 128, h: 32 } )
 		]
 
 		@sliders = [
@@ -19,7 +20,7 @@ class Buffer
 				buffer: self,
 				offset: { x: 304, y: 16 },
 				size: { w: 128, h: 32 },
-				handle: { value: 0, size: { w: 16, h: 32 } }
+				handle: { value: ($gen_speed / 60.0 * 100.0), size: { w: 16, h: 32 } }
 			)
 		]
 	end

@@ -1,6 +1,7 @@
 
 class Field
-	attr_reader :index, :pos, :state
+	attr_accessor :state, :next_state
+	attr_reader :index, :pos
 	def initialize args
 		@index = [args[:index][0], args[:index][1]]
 		@pos = {

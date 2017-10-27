@@ -54,6 +54,16 @@ class Grid
 		return nil
 	end
 
+	def clear
+		# Clear grid - all cells -> dead
+		@grid.each do |col|
+			col.each do |field|
+				field.state = :dead
+				field.next_state = :dead
+			end
+		end
+	end
+
 	def draw
 		@grid.each do |col|
 			col.each do |field|
