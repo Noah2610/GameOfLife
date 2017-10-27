@@ -9,6 +9,7 @@ class Button
 		@@font = Gosu::Font.new 40
 		@@bg_color = Gosu::Color.argb(0xff_999999)
 		@@fg_color = Gosu::Color.argb(0xff_554444)
+		init  if self.class.instance_methods(false).include?(:init)
 	end
 
 	def collision? args
@@ -63,6 +64,19 @@ class PauseButton < Button
 
 	def click args
 		$playing = false
+	end
+end
+
+class TogglePlayButton < Button
+	def draw
+		bg_color = @@bg_color
+		fg_color = @@fg_color
+		Gosu.draw_rect @x, @y, @size[:w], @size[:h], bg_color
+		@@font.draw_rel ($playing ? "Pause" : "Play"), (@x + (@size[:w] / 2)).to_i, (@y + (@size[:h] / 2)).to_i, 0, 0.5,0.45, 1,1, fg_color
+	end
+
+	def click args
+		$playing ? $playing = false : $playing = true
 	end
 end
 

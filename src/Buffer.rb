@@ -9,9 +9,9 @@ class Buffer
 
 
 		@buttons = [
-			StepButton.new(buffer: self, offset: { x: 32, y: 16 }, size: { w: 128, h: 32 } ),
-			PlayButton.new(buffer: self, offset: { x: (@w - 304), y: 16 }, size: { w: 128, h: 32 } ),
-			PauseButton.new(buffer: self, offset: { x: (@w - 160), y: 16 }, size: { w: 128, h: 32 } )
+			StepButton.new(buffer: self, offset: { x: 16, y: 16 }, size: { w: 128, h: 32 } ),
+
+			TogglePlayButton.new(buffer: self, offset: { x: 160, y: 16 }, size: { w: 128, h: 32 } )
 		]
 	end
 
