@@ -7,6 +7,7 @@ require './src/Grid.rb'
 require './src/Field.rb'
 require './src/Buffer.rb'
 require './src/Buttons.rb'
+require './src/Sliders.rb'
 
 class Integer
 	def in_ranges? ranges
@@ -33,6 +34,7 @@ RULES = {
 }
 
 $playing = false
+$gen_speed = 32
 
 class Game < Gosu::Window
 	def initialize
@@ -64,9 +66,13 @@ class Game < Gosu::Window
 	end
 
 	def update
-		@screen.grid.click x: mouse_x, y: mouse_y  if (Gosu.button_down? 256)
+		if (Gosu.button_down? 256)
+			@screen.grid.click x: mouse_x, y: mouse_y
+			@screen.buffer.drag x: mouse_x, y: mouse_y
+		end
 
-		if ($playing && @@update_time % 15 == 0 )
+		if ($playing && @@update_time % $gen_speed == 0 )
+			puts $gen_speed
 			@buffer.screen.grid.grid.each { |col| col.each &:step }
 			@buffer.screen.grid.grid.each { |col| col.each &:step! }
 		end
