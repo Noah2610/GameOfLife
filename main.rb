@@ -52,6 +52,13 @@ class Game < Gosu::Window
 		end
 	end
 
+	def button_up id
+		case id
+		when Gosu::MsLeft
+			@screen.grid.last_toggled = nil
+		end
+	end
+
 	def needs_cursor?
 		true
 	end
@@ -63,7 +70,6 @@ class Game < Gosu::Window
 			@buffer.screen.grid.grid.each { |col| col.each &:step }
 			@buffer.screen.grid.grid.each { |col| col.each &:step! }
 		end
-		@@last_update = Time.now
 		@@update_time += 1
 		#TODO do this properly ^
 	end

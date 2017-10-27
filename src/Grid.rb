@@ -1,5 +1,6 @@
 
 class Grid
+	attr_accessor :last_toggled
 	attr_reader :grid
 	def initialize args
 		@screen = {
@@ -8,6 +9,7 @@ class Grid
 		}
 		@grid_size = args[:grid_size]
 		@grid = mk_grid
+		@last_toggled = nil
 	end
 
 	def mk_grid

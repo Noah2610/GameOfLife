@@ -22,14 +22,19 @@ class Field
 	end
 
 	def toggle
+		return @state  if (!@grid.last_toggled.nil? && (@grid.last_toggled == self || @grid.last_toggled.state == @state))
 		case @state
 		when :alive
 			@state = :dead
+			@next_state = :dead
 		when :dead
 			@state = :alive
+			@next_state = :alive
 		else
 			@state = :NONE
+			@next_state = :NONE
 		end
+		@grid.last_toggled = self
 		return @state
 	end
 
