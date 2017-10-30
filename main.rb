@@ -78,12 +78,17 @@ class Game < Gosu::Window
 		end
 
 		if ($playing && @step_time >= $gen_speed)
-			@buffer.screen.grid.grid.each { |col| col.each &:step }
-			@buffer.screen.grid.grid.each { |col| col.each &:step! }
+			accumulated_time = dt
+			while (accumulated_time > 0.0)
+				@buffer.screen.grid.grid.each { |col| col.each &:step }
+				@buffer.screen.grid.grid.each { |col| col.each &:step! }
+				accumulated_time -= $gen_speed.to_f / dt
+			end
 			@step_time = 0.0
 		elsif ($playing && @step_time < $gen_speed)
 			@step_time += dt * 3.8
 		end
+
 	end
 
 	def draw
