@@ -42,7 +42,9 @@ class Game < Gosu::Window
 		@buffer = @screen.buffer
 		super @screen.w, @screen.h + @buffer.h
 		self.caption = "Conway's Game Of Life"
-		@@update_time = 0
+		@update_time = 0
+		@prev_time = 0.0
+		@step_time = 0.0
 	end
 
 	def button_down id
@@ -66,18 +68,22 @@ class Game < Gosu::Window
 	end
 
 	def update
+		dt = ((Gosu.milliseconds.to_f / 60.0) - @prev_time)
+		@prev_time = (Gosu.milliseconds.to_f / 60.0)
+		@update_time += dt
+
 		if (Gosu.button_down? 256)
 			@screen.grid.click x: mouse_x, y: mouse_y
 			@screen.buffer.drag x: mouse_x, y: mouse_y
 		end
 
-		if ($playing && @@update_time % $gen_speed == 0 )
-			puts $gen_speed
+		if ($playing && @step_time >= $gen_speed)
 			@buffer.screen.grid.grid.each { |col| col.each &:step }
 			@buffer.screen.grid.grid.each { |col| col.each &:step! }
+			@step_time = 0.0
+		elsif ($playing && @step_time < $gen_speed)
+			@step_time += dt * 3.8
 		end
-		@@update_time += 1
-		#TODO do this properly ^
 	end
 
 	def draw
